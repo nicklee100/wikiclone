@@ -6,9 +6,9 @@ const models = require('./models');
 const routes = require('./routes/wiki');
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
 

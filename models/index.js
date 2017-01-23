@@ -12,7 +12,7 @@ const Page = db.define('page', {
         type: Sequelize.STRING,
         allowNull: false,
         get: function(){
-            var title = this.getDataValue(urlTitle)
+            var title = this.getDataValue(title)
             return '/wiki/'+title;
         }
     },

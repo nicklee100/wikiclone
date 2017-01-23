@@ -65,11 +65,20 @@ router.post('/wiki', function(req, res, next){
 
 });
 
- router.get('/wiki/:url',function(req,res,next){
-     var urlTitle = req.params.url;
+router.get('/wiki/:url',function(req,res,next){
+    //var urlTitle = req.params.url;
 
-     res.send(urlTitle);
- });
+    Page.findOne({
+        where: {
+            urlTitle: req.params.url
+        }
+    })
+    .then(function(foundPage){
+        res.json(foundPage);
+    })
+    .catch(next);
+       //res.send(urlTitle);
+   });
 
 
 
