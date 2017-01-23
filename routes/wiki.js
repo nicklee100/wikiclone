@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+var models = require('../models');
+var Page = models.Page;
+var User = models.User;
 
 router.get('/wiki', function(req, res, next){
     res.redirect('/');
@@ -47,8 +50,19 @@ router.delete('/users/:id', function(req,res,next){
 //
 
 router.post('/wiki', function(req, res, next){
-    res.send('send wiki pages');
-    next();
+    var title = req.body.title;
+    var text = req.body.text;
+
+    var page = Page.build({
+        title:      title,
+        content:    text,
+        urlTitle: title
+    });
+
+    page.save();
+
+    res.redirect('/');
+
 });
 
 
