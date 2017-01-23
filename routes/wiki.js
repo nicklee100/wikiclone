@@ -6,17 +6,14 @@ var User = models.User;
 
 router.get('/wiki', function(req, res, next){
     res.redirect('/');
-    next();
 });
 
 router.get('/', function(req, res, next){
-    res.send('home page')
-    next();
+    res.send('home page');
 });
 
 router.get('/wiki/add', function(req, res, next){
     res.render('addpage');
-    next();
 });
 
 //
@@ -58,16 +55,21 @@ router.post('/wiki', function(req, res, next){
         content:    text,
     });
 
-    page.save();
+    page.save().then(function(pageInstance){
+        console.log(pageInstance.dataValues.urlTitle);
+        var url = pageInstance.dataValues.urlTitle;
+        res.redirect('/wiki/'+url);
+    });
 
-    res.redirect('/');
+    //res.redirect('/wiki/'+page.urlTitle);
 
 });
 
-// router.get('/wiki/:url',function(req,res,next){
-//     var urlTitle = req.params.url;
-//     res.send(urlTitle)
-// })
+ router.get('/wiki/:url',function(req,res,next){
+     var urlTitle = req.params.url;
+
+     res.send(urlTitle);
+ });
 
 
 
