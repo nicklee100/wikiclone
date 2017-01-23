@@ -56,7 +56,6 @@ router.post('/wiki', function(req, res, next){
     var page = Page.build({
         title:      title,
         content:    text,
-        urlTitle: title
     });
 
     page.save();
@@ -64,6 +63,11 @@ router.post('/wiki', function(req, res, next){
     res.redirect('/');
 
 });
+
+// router.get('/wiki/:url',function(req,res,next){
+//     var urlTitle = req.params.url;
+//     res.send(urlTitle)
+// })
 
 
 
