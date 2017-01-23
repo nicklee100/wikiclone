@@ -11,10 +11,6 @@ const Page = db.define('page', {
     urlTitle: {
         type: Sequelize.STRING,
         allowNull: false,
-        get: function(){
-            var title = this.getDataValue(title)
-            return '/wiki/'+title;
-        }
     },
 
     content: {
@@ -27,6 +23,13 @@ const Page = db.define('page', {
    //     type: Sequelize.DATE,
    //     defaultValue: Sequelize.NOW
    // }
+},{
+    getterMethods : {
+        getRoute: function(){
+            var title = this.urlTitle;
+            return '/wiki/'+title;
+        }
+    }
 });
 
 Page.hook('beforeValidate', function (page,options) {

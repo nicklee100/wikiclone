@@ -4,13 +4,18 @@ var models = require('../models');
 var Page = models.Page;
 var User = models.User;
 
+router.get('/', function(req, res, next){
+
+    var page = Page.findAll({}).then(function(pages){
+        res.render('index.html', {pages:pages});
+    });
+});
+
 router.get('/wiki', function(req, res, next){
     res.redirect('/');
 });
 
-router.get('/', function(req, res, next){
-    res.send('home page');
-});
+
 
 router.get('/wiki/add', function(req, res, next){
     res.render('addpage');
@@ -56,9 +61,10 @@ router.post('/wiki', function(req, res, next){
     });
 
     page.save().then(function(pageInstance){
-        console.log(pageInstance.dataValues.urlTitle);
-        var url = pageInstance.dataValues.urlTitle;
-        res.redirect('/wiki/'+url);
+        //console.log(pageInstance)
+        var url = pageInstance.getRoute;
+
+        res.redirect(url);
     });
 
     //res.redirect('/wiki/'+page.urlTitle);
@@ -74,7 +80,9 @@ router.get('/wiki/:url',function(req,res,next){
         }
     })
     .then(function(foundPage){
-        res.json(foundPage);
+
+        res.render('wikipage.html',{foundPage})  // nees to be object?
+        //res.json(foundPage);
     })
     .catch(next);
        //res.send(urlTitle);

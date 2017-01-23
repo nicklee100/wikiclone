@@ -2,8 +2,13 @@
 
 {% block content %}
   <h3>Pages</h3>
+  <p>   </p>
   <hr>
   <ul class="list-unstyled">
-    <!-- PLACEHOLDER LIST OF PAGES -->
+      <ul>
+          {% for page in pages %}
+            <li><a href='{{page.getRoute}}'>{{page.title}}</a></li>
+          {% endfor %}
+      </ul>
   </ul>
 {% endblock %}
